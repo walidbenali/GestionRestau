@@ -27,7 +27,7 @@ namespace GestionRestau.Controllers
         {
             return View();
         }
-
+        //Je vais ajouter un commentaire
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
