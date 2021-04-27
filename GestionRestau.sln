@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionRestau", "GestionRestau\GestionRestau.csproj", "{DE7E1D11-0525-4716-9E83-B03754B07506}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE7E1D11-0525-4716-9E83-B03754B07506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7E1D11-0525-4716-9E83-B03754B07506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7E1D11-0525-4716-9E83-B03754B07506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7E1D11-0525-4716-9E83-B03754B07506}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A2B0982-7027-4E56-BAC2-57A97515E471}
+	EndGlobalSection
+EndGlobal
