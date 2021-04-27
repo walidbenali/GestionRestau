@@ -2,152 +2,99 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GestionRestau.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using GestionRestau.Models;
-using GestionRestau.Models.Context;
 
 namespace GestionRestau.Controllers
 {
     public class ServeursController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ServeursController(ApplicationDbContext context)
+        private readonly IServeurRepository _serveurRepository;
+        public ServeursController(IServeurRepository serveurRepository)
         {
-            _context = context;
+            _serveurRepository = serveurRepository;
         }
-
         // GET: Serveurs
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Serveurs.ToListAsync());
+            var serveurs = _serveurRepository.GetAll();
+            return View(serveurs);
         }
 
         // GET: Serveurs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var serveur = await _context.Serveurs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (serveur == null)
-            {
-                return NotFound();
-            }
-
-            return View(serveur);
+            return View();
         }
 
         // GET: Serveurs/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
 
         // POST: Serveurs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Telephone,Email,Adresse")] Serveur serveur)
+        public ActionResult Create(IFormCollection collection)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(serveur);
-                await _context.SaveChangesAsync();
+                // TODO: Add insert logic here
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(serveur);
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Serveurs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var serveur = await _context.Serveurs.FindAsync(id);
-            if (serveur == null)
-            {
-                return NotFound();
-            }
-            return View(serveur);
+            return View();
         }
 
         // POST: Serveurs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Telephone,Email,Adresse")] Serveur serveur)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-            if (id != serveur.Id)
+            try
             {
-                return NotFound();
-            }
+                // TODO: Add update logic here
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(serveur);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ServeurExists(serveur.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            return View(serveur);
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Serveurs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var serveur = await _context.Serveurs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (serveur == null)
-            {
-                return NotFound();
-            }
-
-            return View(serveur);
+            return View();
         }
 
         // POST: Serveurs/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
-            var serveur = await _context.Serveurs.FindAsync(id);
-            _context.Serveurs.Remove(serveur);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            try
+            {
+                // TODO: Add delete logic here
 
-        private bool ServeurExists(int id)
-        {
-            return _context.Serveurs.Any(e => e.Id == id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
