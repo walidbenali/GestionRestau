@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using GestionRestau.Models.Context;
+using GestionRestau.Repositories.Implementations;
+using GestionRestau.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +42,10 @@ namespace GestionRestau
             //Showing explicitly that the DbContext is shared across the HTTP request scope (graph of objects started in the HTTP request)
                     ServiceLifetime.Scoped
             );
+            //Injection des dépndeces pour les repositories (Ou services)
+            services.AddScoped<IServeurRepository, ServeurRepository>();
+            services.AddScoped<IProduitRepository, ProduitRepository>();
+
             services.AddControllersWithViews();
         }
 
