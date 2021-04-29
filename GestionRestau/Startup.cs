@@ -45,6 +45,7 @@ namespace GestionRestau
             //Injection des dépndeces pour les repositories (Ou services)
             services.AddScoped<IServeurRepository, ServeurRepository>();
             services.AddScoped<IProduitRepository, ProduitRepository>();
+            services.AddScoped<ITableCmdRepository, TableCmdRepository>();
 
             services.AddControllersWithViews();
         }
@@ -73,7 +74,7 @@ namespace GestionRestau
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=TableCmds}/{action=Index}/{id?}");
             });
         }
     }

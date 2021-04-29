@@ -21,6 +21,11 @@ namespace GestionRestau.Repositories.Implementations
             var tableCmds = _dbContext.TableCmds.ToList();
             return tableCmds;
         }
+        public ICollection<TableCmd> GetAllWithServers()
+        {
+            var tableCmds = _dbContext.TableCmds.Include(tbl => tbl.Serveur).ToList();
+            return tableCmds;
+        }
         public void Insert(TableCmd tableCmd)
         {
             _dbContext.TableCmds.Add(tableCmd);

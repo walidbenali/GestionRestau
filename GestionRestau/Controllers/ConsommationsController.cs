@@ -2,53 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GestionRestau.Models;
 using GestionRestau.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionRestau.Controllers
 {
-    public class ServeursController : Controller
+    public class ConsommationsController : Controller
     {
-        private readonly IServeurRepository _serveurRepository;
-        public ServeursController(IServeurRepository serveurRepository)
+        private readonly IConsommationRepository _consommationRepository;
+        public ConsommationsController(IConsommationRepository consommationRepository)
         {
-            _serveurRepository = serveurRepository;
+            _consommationRepository = consommationRepository;
         }
-        // GET: Serveurs
+        // GET: Consommations
         public ActionResult Index()
         {
-            var serveurs = _serveurRepository.GetAll();
-            return View(serveurs);
+            var consommations = _consommationRepository.GetAll();
+            return View(consommations);
         }
 
-        // GET: Serveurs/Details/5
+        // GET: Consommations/Details/5
         public ActionResult Details(int id)
         {
-            var serveur = _serveurRepository.GetById(id);
-            return View(serveur);
+            return View();
         }
 
-        // GET: Serveurs/Create
+        // GET: Consommations/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Serveurs/Create
+        // POST: Consommations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Serveur serveur)
+        public ActionResult Create(IFormCollection collection)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
             try
             {
-                _serveurRepository.Insert(serveur);
-                _serveurRepository.Save();
+                // TODO: Add insert logic here
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -57,32 +51,21 @@ namespace GestionRestau.Controllers
             }
         }
 
-        // GET: Serveurs/Edit/5
+        // GET: Consommations/Edit/5
         public ActionResult Edit(int id)
         {
-            var serveur = _serveurRepository.GetById(id);
-            if (serveur == null) return NotFound();
-            return View(serveur);
+            return View();
         }
 
-        // POST: Serveurs/Edit/5
+        // POST: Consommations/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Serveur serveur)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            var exist = _serveurRepository.GetById(serveur.Id);
-            if (exist==null)
-            {
-                return NotFound();
-            }
             try
             {
-                _serveurRepository.Update(serveur);
-                _serveurRepository.Save();
+                // TODO: Add update logic here
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -91,13 +74,13 @@ namespace GestionRestau.Controllers
             }
         }
 
-        // GET: Serveurs/Delete/5
+        // GET: Consommations/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Serveurs/Delete/5
+        // POST: Consommations/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
