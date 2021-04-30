@@ -85,7 +85,7 @@ namespace GestionRestau.Controllers
                 _serveurRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }

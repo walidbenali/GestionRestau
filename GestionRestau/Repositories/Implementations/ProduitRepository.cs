@@ -27,12 +27,18 @@ namespace GestionRestau.Repositories.Implementations
         }
         public Produit GetById(int Id)
         {
-            return _dbContext.Produits.Find(Id);
+            var result = _dbContext.Produits.Find(Id);
+            _dbContext.Entry(result).State = EntityState.Detached;
+            return result;
         }
         public void Update(Produit produit)
         {
             _dbContext.Entry(produit).State = EntityState.Modified;
         }
+        //public void Detach(Produit produit)
+        //{
+        //    _dbContext.Entry(produit).State = EntityState.Modified;
+        //}
         public void DeleteById(int Id)
         {
             var produitToDelete = _dbContext.Produits.Find(Id);

@@ -26,6 +26,11 @@ namespace GestionRestau.Repositories.Implementations
             var tableCmds = _dbContext.TableCmds.Include(tbl => tbl.Serveur).ToList();
             return tableCmds;
         }
+        public TableCmd GetByIdWithServer(int Id)
+        {
+            return _dbContext.TableCmds.Include(tbl => tbl.Serveur)
+                .FirstOrDefault(tbl => tbl.Id == Id);
+        }
         public void Insert(TableCmd tableCmd)
         {
             _dbContext.TableCmds.Add(tableCmd);

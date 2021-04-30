@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using GestionRestau.Models;
 using GestionRestau.Repositories.Interfaces;
 using GestionRestau.ViewModels;
@@ -15,10 +16,13 @@ namespace GestionRestau.Controllers
     {
         private readonly ITableCmdRepository _tableCmdRepository;
         private readonly IServeurRepository _serveurRepository;
-        public TableCmdsController(ITableCmdRepository tableCmdRepository,IServeurRepository serveurRepository)
+        private readonly IMapper _mapper;
+
+        public TableCmdsController(ITableCmdRepository tableCmdRepository,IServeurRepository serveurRepository,IMapper mapper)
         {
             _tableCmdRepository = tableCmdRepository;
             _serveurRepository = serveurRepository;
+            _mapper = mapper;
         }
         // GET: TableCmds
         public ActionResult Index()
@@ -37,8 +41,9 @@ namespace GestionRestau.Controllers
         // GET: TableCmds/Details/5
         public ActionResult Details(int id)
         {
-
-            return View();
+            var tbl = _tableCmdRepository.GetByIdWithServer(id);
+            var result = _mapper.Map<DetailsTableCmdViewModel>(tbl);
+            return View(result);
         }
 
         // GET: TableCmds/Create
@@ -58,15 +63,16 @@ namespace GestionRestau.Controllers
         {
             try  
             {
-                TableCmd tbl = new TableCmd();
-                tbl.Id = tableCmds.Id;
-                tbl.Numero = tableCmds.Numero;
-                tbl.NbPlace = tableCmds.NbPlace;
-                tbl.Occupation = tableCmds.Occupation;
-                tbl.Emplacement = tableCmds.Emplacement;
-                tbl.ServeurId = tableCmds.ServeurId; 
+                //TableCmd tbl = new TableCmd();
+                //tbl.Id = tableCmds.Id;
+                //tbl.Numero = tableCmds.Numero;
+                //tbl.NbPlace = tableCmds.NbPlace;
+                //tbl.Occupation = tableCmds.Occupation;
+                //tbl.Emplacement = tableCmds.Emplacement;
+                //tbl.ServeurId = tableCmds.ServeurId; 
+                var tbl = _mapper.Map<TableCmd>(tableCmds);
                 _tableCmdRepository.Insert(tbl);
-                _serveurRepository.Save();
+                _tableCmdRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -47,6 +47,9 @@ namespace GestionRestau
             services.AddScoped<IProduitRepository, ProduitRepository>();
             services.AddScoped<ITableCmdRepository, TableCmdRepository>();
 
+            //Automapper configuration
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews();
         }
 
